@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductItemsModule } from './controllers/product-items/product-items.module';
-import { ProductItemsController } from './controllers/product-items/product-items.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Products } from './entity/Products';
-import { ProductItemsService } from './services/product-items/product-items.service';
+import { ProductItem } from './controllers/product-items/entities/product-item.entity';
 
 @Module({
   imports: [
@@ -17,7 +15,7 @@ import { ProductItemsService } from './services/product-items/product-items.serv
       username: 'root',
       password: '',
       database: 'ecommerce',
-      entities: [Products],
+      entities: [ProductItem],
       synchronize: true,
     }),
   ],
