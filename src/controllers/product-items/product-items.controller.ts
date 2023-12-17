@@ -1,39 +1,47 @@
-import { Controller, Get, Header, HostParam, HttpCode, Redirect, Res } from '@nestjs/common';
-import { GenericResponse } from 'src/models/Generic';
-import { Items } from 'src/models/Item';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
+import { ProductItemsService } from './product-items.service';
+import { CreateProductItemDto } from './dto/create-product-item.dto';
+import { UpdateProductItemDto } from './dto/update-product-item.dto';
 
-@Controller({path: 'product-items'})
+@Controller('product-items')
 export class ProductItemsController {
+  constructor(private readonly productItemsService: ProductItemsService) {}
 
-    @Get('/products')
-    @HttpCode(200)
-    async getAllProducts(@HostParam('local') local: string): Promise<GenericResponse<Items[]>> {
-        const items: Items[] = [
-            {
-                id: 1000,
-                name: 'piatos',
-                price: 12,
-                quantity: 5
-            },
-            {
-                id: 1001,
-                name: 'fita',
-                price: 5,
-                quantity: 2
-            },
-            {
-                id: 1002,
-                name: 'cream-o',
-                price: 7,
-                quantity: 3
-            },
-        ];
-        
-        return {
-            code: 200,
-            status: 1,
-            message: 'All Product Items.',
-            data: items,
-        }
-    }
+  @Post()
+  @HttpCode(200)
+  create(@Body() createProductItemDto: CreateProductItemDto) {
+    return this.productItemsService.create(createProductItemDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.productItemsService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productItemsService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateProductItemDto: UpdateProductItemDto,
+  ) {
+    return this.productItemsService.update(+id, updateProductItemDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.productItemsService.remove(+id);
+  }
 }
