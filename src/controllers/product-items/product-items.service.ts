@@ -12,20 +12,25 @@ export class ProductItemsService {
     private productItemEntity: Repository<ProductItem>,
   ) {}
   create(createProductItemDto: CreateProductItemDto) {
-    this.productItemEntity
+    try{
+      this.productItemEntity
       .createQueryBuilder('product_item')
       .insert()
       .into(ProductItem)
       .values(createProductItemDto)
       .execute();
 
-    return 'This action adds a new productItem';
+      return 'This action adds a new productItem';
+    }
+    catch(error) {
+      return 'Something went wrong.'
+    }
   }
 
   async findAll() {
     return await this.productItemEntity
       .createQueryBuilder()
-      .select(['name', 'price', 'quantity'])
+      .select(['id', 'name', 'price', 'quantity'])
       .execute();
   }
 
