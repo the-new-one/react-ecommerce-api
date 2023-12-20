@@ -10,6 +10,7 @@ import { FirestoreModule } from './firestore.module';
 import { TodoModule } from './controllers/todo/todo.module';
 import { AuthModule } from './controllers/auth/auth.module';
 import { BillingModule } from './controllers/billing/billing.module';
+import { UserCredModule } from './controllers/user-cred/user-cred.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { BillingModule } from './controllers/billing/billing.module';
     }),
     TodoModule,
     AuthModule,
-    BillingModule
+    BillingModule,
+    UserCredModule
     // end of firestore
   ],
   controllers: [AppController],
