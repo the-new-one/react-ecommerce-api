@@ -8,6 +8,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Firestore } from '@google-cloud/firestore';
 import { FirestoreModule } from './firestore.module';
 import { TodoModule } from './controllers/todo/todo.module';
+import { AuthModule } from './controllers/auth/auth.module';
+import { BillingModule } from './controllers/billing/billing.module';
+import { UserCredModule } from './controllers/user-cred/user-cred.module';
 
 @Module({
   imports: [
@@ -34,7 +37,10 @@ import { TodoModule } from './controllers/todo/todo.module';
       }),
       inject: [ConfigService]
     }),
-    TodoModule
+    TodoModule,
+    AuthModule,
+    BillingModule,
+    UserCredModule
     // end of firestore
   ],
   controllers: [AppController],
