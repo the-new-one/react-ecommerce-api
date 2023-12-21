@@ -1,15 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UsePipes } from '@nestjs/common';
 import { UserCredService } from './user-cred.service';
-import { CreateUserCredDto } from './dto/create-user-cred.dto';
+import { CreateUserAccountInfo, CreateUserPersonalInformation } from './dto/create-user-cred.dto';
 import { UpdateUserCredDto } from './dto/update-user-cred.dto';
 
-@Controller('user-cred')
+@Controller('/user-cred')
 export class UserCredController {
   constructor(private readonly userCredService: UserCredService) {}
-
+  
   @Post()
-  create(@Body() createUserCredDto: CreateUserCredDto) {
+  create(@Body() createUserCredDto: CreateUserPersonalInformation) {
     return this.userCredService.create(createUserCredDto);
+  }
+  
+  @Post('/signin')
+  @UsePipes(new ValidationPipe)
+  verifyCredentials(@Body() user: CreateUserAccountInfo) {
+    
+    return "Signin end point.";
   }
 
   @Get()
