@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseP
 import { UserCredService } from './user-cred.service';
 import { CreateUserAccountInfo, CreateUserPersonalInformation } from './dto/create-user-cred.dto';
 import { UpdateUserCredDto } from './dto/update-user-cred.dto';
+import { GenericResponse } from 'src/models/Generic';
 
 @Controller('/user-cred')
 export class UserCredController {
@@ -14,9 +15,13 @@ export class UserCredController {
   
   @Post('/signin')
   @UsePipes(new ValidationPipe)
-  verifyCredentials(@Body() user: CreateUserAccountInfo) {
-    
-    return "Signin end point.";
+  verifyCredentials(@Body() user: CreateUserAccountInfo): Promise<GenericResponse<string>> {
+    try{
+      return this.userCredService.verifyCredentials(user);
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 
   @Get()
