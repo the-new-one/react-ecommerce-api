@@ -5,15 +5,15 @@ export class UserCred {
   @PrimaryGeneratedColumn()
   id: number;
   @Column({
-    length: 30,
+    length: 30, type: 'int'
   })
   firstname: string;
-  @Column({ length: 30 })
+  @Column({ length: 30, type: 'varchar' })
   middlename: string;
-  @Column({ length: 30 })
+  @Column({ length: 30, type: 'varchar' })
   lastname: string;
-  @Column({ length: 11 })
+  @Column({ length: 11, type: 'varchar' })
   contactno: string;
-  @Column({ length: 200 })
+  @Column({ length: 200, type: 'text' })
   address: string;
 }

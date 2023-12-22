@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as express from 'express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -8,7 +9,7 @@ async function bootstrap() {
   app.use('/public', express.static('public'));
 
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://10.0.8.37:4000'],
   });
 
   await app.listen(4000);

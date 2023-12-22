@@ -29,7 +29,7 @@ export class ProductItemsService {
 
   async findAll() {
     return await this.productItemEntity
-      .createQueryBuilder()
+      .createQueryBuilder('product_item')
       .select(['id', 'name', 'price', 'quantity'])
       .execute();
   }
